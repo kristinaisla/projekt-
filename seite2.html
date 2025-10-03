@@ -20,6 +20,16 @@
           background-attachment: fixed;
           position: relative;
         }
+        body::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          background: url('rosen.jpg') center center/cover no-repeat;
+          opacity: 0.20;
+          filter: saturate(105%) brightness(103%);
+          pointer-events: none;
+          z-index: -2;
+        }
         body::after {
           content: '';
           position: fixed;

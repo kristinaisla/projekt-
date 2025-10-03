@@ -23,9 +23,11 @@
           content: '';
           position: fixed;
           inset: 0;
-          background: none;
+          background: url('rosen.jpg') center center/cover no-repeat;
+          opacity: 0.20; /* Transparenz der Rosen */
+          filter: saturate(105%) brightness(103%);
           pointer-events: none;
-          z-index: -1;
+          z-index: -2; /* unter dem PNG (::after) */
         }
         /* PNG wie vorher (Größe/Position) separat, damit leicht änderbar */
         body::after {
