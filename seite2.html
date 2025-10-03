@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zweite Seite</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          overflow-x: hidden; /* verhindert seitliches Scrollen durch evtl. Rotationen */
+        }
+
+        .text-box {
+          /* fixed dimensions so the box keeps the same size on all screens */
+          width: 300px;
+          max-width: 300px;
+          padding: 18px 20px;
+          margin: 18px auto;
+          background-color: transparent;
+          color: rgba(0,0,0,0.8);
+          font-size: 1.25rem;
+          font-family: 'Great Vibes', cursive;
+          text-align: center;
+          line-height: 1.75;
+          word-break: normal;
+          overflow-wrap: break-word;
+          box-sizing: border-box;
+        }
+
+        .text-box a {
+          color: inherit;
+          text-decoration: none;
+          font-size: inherit;
+        }
+
+        h2 {
+          margin: 10;
+          padding: 10px;
+          color: rgba(0,0,0,0.8);
+        }
+
+        .site-banner {
+          width: 100%; /* volle Breite */
+          max-width: 100%;
+          height: 40vh;
+          min-height: 300px;
+          max-height: 600px;
+          background: url('Banner.jpeg') center 20%/cover no-repeat;
+          display: block;
+          position: relative;
+          left: 0;
+          right: 0;
+          margin: 0;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+          border-bottom: 6px solid #ffffff;
+        }
+
+        .poesie-title {
+          font-family: 'Great Vibes', cursive;
+          font-size: 3.2rem;
+          color: #ffffff;
+          -webkit-text-stroke: 0.00001px #ffbcd7;
+          text-shadow: 0 2px 6px rgba(0,0,0,0.45),
+                       0 0 6px rgba(255,136,184,0.45);
+          text-align: center;
+          margin: 0;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+        }
+
+        .center-image {
+          display: block;
+          margin: 40px auto;
+          max-width: 80%;
+          height: auto;
+          transform: rotate(270deg);
+        }
+
+        @media (max-width: 768px) {
+          .site-banner {
+            height: 25vh;
+            min-height: 150px;
+            background-position: center top;
+            border-bottom: 2px solid #ffffff;
+          }
+        }
+
+        /* ================= Poesiealbum Sticker (Seite 2) – Grid & Schnüre ================= */
+        .sticker-area {
+          width: 100%;
+          max-width: 1300px;
+          margin: 0 auto;
+          padding: clamp(12px,2vw,28px) 16px 60px;
+          box-sizing: border-box;
+          position: relative;
+          min-height: clamp(600px, 90vh, 1000px);
+        }
+        .sticker-board {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          min-height: inherit;
+          user-select: none;
+          touch-action: none;
+        }
+        /* dekorative Leinen (mehrere) */
+        .sticker {
+          position: absolute;
+          top: 120px; /* wird durch JS überschrieben */
+          left: 40px; /* wird durch JS überschrieben */
+          font-family: 'Great Vibes', cursive;
+          font-size: clamp(1.15rem, 1.6vw, 1.55rem);
+          line-height: 1.18;
+          padding: 16px 18px 20px;
+          width: 190px;
+          background: radial-gradient(circle at 30% 28%, #fff7fb 0%, #ffe3f0 60%, #ffd1e6 100%);
+          border: 2px solid #ffb6d5;
+          border-radius: 18px 24px 22px 20px / 22px 20px 24px 18px;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.22), 0 0 0 3px rgba(255,182,213,0.35) inset;
+          transform: rotate(var(--rot, -4deg));
+          transition: box-shadow .3s, filter .3s, transform .35s;
+          cursor: grab;
+          user-select: none;
+          touch-action: none;
+        }
+        /* Schnur */
+        .sticker::after {
+          content: '';
+          position: absolute;
+          top: calc(-1 * var(--string-length, 90px));
+          left: 50%;
+          width: 2px;
+          height: var(--string-length, 90px);
+          background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,170,200,0.55));
+          transform: translateX(-50%);
+          box-shadow: 0 0 4px rgba(255,170,200,0.55);
+          pointer-events: none;
+        }
+        /* Tape */
+        .sticker::before {
+          content: '';
+          position: absolute;
+          left: 50%;
+            top: -14px;
+          width: 60px;
+          height: 30px;
+          transform: translateX(-50%) rotate(2deg);
+          background: repeating-linear-gradient(135deg, rgba(255,170,200,0.85) 0 8px, rgba(255,210,230,0.85) 8px 16px);
+          clip-path: polygon(0 0,100% 0,90% 100%,10% 100%);
+          opacity: .9;
+          filter: drop-shadow(0 2px 2px rgba(0,0,0,0.25));
+        }
+        .sticker small { display: block; margin-top: 6px; font-size: .9em; opacity: .7; }
+  .sticker:hover { box-shadow: 0 12px 28px -4px rgba(0,0,0,0.28), 0 0 0 3px #ff9ac6 inset; filter: brightness(1.05); }
+  .sticker.dragging { cursor: grabbing; box-shadow: 0 18px 34px -6px rgba(0,0,0,0.35), 0 0 0 3px #ff91c1 inset; transform: rotate(0deg) scale(1.05); }
+        /* Für sehr kleine Höhen – leicht skalieren */
+        @media (max-width: 740px) {
+          .sticker { width: 170px; }
+        }
+        @media (max-width: 520px) {
+          .sticker { width: 150px; font-size: clamp(1rem, 3.6vw, 1.25rem); }
+        }
+    </style>
+  </head>
+  <body>
+    <header class="site-banner">
+      <h1 class="poesie-title">Poesiebaum </h1>
+    </header>
+
+    <!-- (Bild entfernt auf Wunsch) -->
+
+    <div class="sticker-area" aria-label="Poesiealbum Sticker Sammlung Seite 2">
+      <div class="sticker-board">
+        <div class="sticker">Julia, ich weiß du betrügst mich!! Hier sind deine Bilder. Ich hasse dich.</small></div>
+        <div class="sticker">Ein Blick reicht<small>um zu bleiben</small></div>
+        <div class="sticker">Spuren im Regen<small>lösen Gedanken</small></div>
+        <div class="sticker">Flüstern unter Neon<small>wird warm</small></div>
+        <div class="sticker">Ein Laternenkreis<small>hält dich</small></div>
+        <div class="sticker">Stille wartet<small>im Rücklicht</small></div>
+        <div class="sticker">Dein Name<br>im Dunst</div>
+      </div>
+    </div>
+
+    <div class="text-box" style="margin-top:40px; margin-bottom:60px;">
+      <a href="index.html">← Zurück zur Startseite</a>
+    </div>
+
+    <script>
+      (function(){
+        const board = document.querySelector('.sticker-board');
+        const stickers = Array.from(board.querySelectorAll('.sticker'));
+        const rand = (min,max)=> Math.random()*(max-min)+min;
+        const boardRect = ()=> board.getBoundingClientRect();
+
+        // Zufällige Start-Positionen (überlappend, innerhalb des Boards)
+        function layoutRandom(){
+          const rect = boardRect();
+            const pad = 40;
+          stickers.forEach((el,i)=>{
+            const w = el.offsetWidth || 190;
+            const h = el.offsetHeight || 160;
+            const x = rand(pad, rect.width - w - pad);
+            const y = rand(80, rect.height - h - pad);
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            el.style.setProperty('--string-length', rand(70,150).toFixed(0)+'px');
+            el.style.setProperty('--rot', rand(-10,10).toFixed(2)+'deg');
+            // leichte Überlappungen durch Z-Index Staffelung
+            el.style.zIndex = 10 + i;
+          });
+        }
+
+        // Drag & Drop
+        let current = null;
+        let startX=0,startY=0, origX=0, origY=0;
+
+        function pointerDown(e){
+          const target = e.target.closest('.sticker');
+          if(!target) return;
+          e.preventDefault();
+          current = target;
+          current.classList.add('dragging');
+          const rect = current.getBoundingClientRect();
+          const br = boardRect();
+          startX = (e.touches? e.touches[0].clientX : e.clientX);
+          startY = (e.touches? e.touches[0].clientY : e.clientY);
+          origX = rect.left - br.left;
+          origY = rect.top - br.top;
+          // oberste Ebene beim Draggen
+          current.style.zIndex = Date.now();
+          window.addEventListener('pointermove', pointerMove);
+          window.addEventListener('pointerup', pointerUp);
+        }
+
+        function pointerMove(e){
+          if(!current) return;
+          const br = boardRect();
+          const cx = (e.clientX || (e.touches? e.touches[0].clientX:0));
+          const cy = (e.clientY || (e.touches? e.touches[0].clientY:0));
+          const dx = cx - startX;
+          const dy = cy - startY;
+          const w = current.offsetWidth;
+          const h = current.offsetHeight;
+          const pad = 10;
+          let nx = origX + dx;
+          let ny = origY + dy;
+          // Grenzen
+          nx = Math.max(pad, Math.min(nx, br.width - w - pad));
+          ny = Math.max(60, Math.min(ny, br.height - h - pad));
+          current.style.left = nx + 'px';
+          current.style.top = ny + 'px';
+          // Schnur anpassen -> neue Länge
+          const newLen = Math.max(50, ny - 20).toFixed(0)+'px';
+          current.style.setProperty('--string-length', newLen);
+        }
+
+        function pointerUp(){
+          if(current){ current.classList.remove('dragging'); }
+          current = null;
+          window.removeEventListener('pointermove', pointerMove);
+          window.removeEventListener('pointerup', pointerUp);
+        }
+
+        board.addEventListener('pointerdown', pointerDown);
+        window.addEventListener('resize', ()=> layoutRandom());
+        // initial nach kurzer Verzögerung (damit Maße vorhanden sind)
+        window.addEventListener('load', ()=> setTimeout(layoutRandom, 60));
+      })();
+    </script>
+  </body>
+</html>
