@@ -90,17 +90,17 @@
 
         .poesie-title {
           font-family: 'Great Vibes', cursive;
-          font-size: clamp(3.2rem, 8vw, 5.6rem);
+          font-size: clamp(5rem, 11vw, 9rem);
+          line-height: 0.95;
           color: #ffffff;
           -webkit-text-stroke: 0.00001px #ffbcd7;
-          text-shadow: 0 3px 10px rgba(0,0,0,0.55),
-                       0 0 10px rgba(255,136,184,0.55);
+          text-shadow: 0 4px 14px rgba(0,0,0,0.6), 0 0 14px rgba(255,136,184,0.55);
           text-align: center;
           margin: 0;
-          letter-spacing: 2px;
+          letter-spacing: 3px;
           position: absolute;
           left: 50%;
-          top: 50%;
+          top: 52%;
           transform: translate(-50%, -50%);
           pointer-events: none;
         }
@@ -131,6 +131,40 @@
           box-sizing: border-box;
           position: relative;
           min-height: clamp(600px, 90vh, 1000px);
+          /* Poesiealbum: zartes Papier mit Linien */
+          background:
+            linear-gradient(120deg, #fff8fc 0%, #ffeef7 40%, #ffe2f1 100%),
+            repeating-linear-gradient(to bottom, rgba(255,170,200,0.18) 0 2px, rgba(255,170,200,0) 2px 42px);
+          background-blend-mode: normal, multiply;
+          border-radius: 18px;
+          border: 1px solid rgba(255,180,210,0.5);
+          box-shadow: 0 12px 28px rgba(0,0,0,0.12), inset 0 0 24px rgba(255,180,210,0.25);
+          overflow: hidden;
+        }
+        /* Buchrücken (Gutter) mittig */
+        .sticker-area::before {
+          content: '';
+          position: absolute;
+          top: 0; bottom: 0;
+          left: 50%;
+          width: 18px;
+          transform: translateX(-50%);
+          background:
+            linear-gradient(to right, rgba(255,255,255,0.7), rgba(0,0,0,0.08), rgba(255,255,255,0.7));
+          filter: blur(0.2px);
+          mix-blend-mode: multiply;
+          opacity: .35;
+          pointer-events: none;
+          z-index: 0;
+        }
+        /* leichte Vignette innen */
+        .sticker-area::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          box-shadow: inset 0 0 60px rgba(0,0,0,0.08), inset 0 0 80px rgba(255,170,200,0.18);
+          pointer-events: none;
+          z-index: 0;
         }
         .sticker-board {
           position: relative;
@@ -139,6 +173,7 @@
           min-height: inherit;
           user-select: none;
           touch-action: none;
+          z-index: 1; /* über Album-Pseudo-Elementen */
         }
         /* dekorative Leinen (mehrere) */
         .sticker {
