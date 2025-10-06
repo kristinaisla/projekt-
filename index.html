@@ -19,6 +19,7 @@
           background: linear-gradient(135deg, #fff2f7 0%, #ffe4f0 45%, #ffd3e8 100%);
           background-attachment: fixed;
         }
+        /* entfernt: Großer Sticker001 unten rechts */
         body::before {
           content: '';
           position: fixed;
@@ -29,19 +30,8 @@
           pointer-events: none;
           z-index: -2; /* unter dem PNG (::after) */
         }
-        /* PNG wie vorher (Größe/Position) separat, damit leicht änderbar */
-        body::after {
-          content: '';
-          position: fixed;
-          right: -100px; /* ursprüngliche Verschiebung */
-          bottom: 170px;
-          width: 200px; /* Größe beibehalten */
-          height: 200px; /* quadratisch annehmen für Positionierung */
-          background: url('sticker.png') no-repeat center/contain;
-          opacity: 1;
-          pointer-events: none;
-          z-index: -1;
-        }
+       
+      
         
       .text-box {
         /* fixed dimensions so the box keeps the same size on all screens */
@@ -51,7 +41,7 @@
         margin: 18px auto; /* zentriert horizontal */
         background-color: transparent; /* transparenter Hintergrund */
         color: rgba(0,0,0,0.8);
-        font-size: 1.25rem;
+  font-size: 3rem;
         font-family: 'Great Vibes', cursive;
         text-align: center; /* zentrierter Flattersatz */
         -webkit-hyphens: none;
@@ -70,6 +60,9 @@
         font-size: inherit;
       }
 
+      /* kleinere Variante nur für den "Poetische Schnippsel"-Kasten */
+      .text-box.text-box--small { font-size: 1.25rem; }
+
       h2 {
         margin: 10;
         padding: 10px;
@@ -80,7 +73,7 @@
     height: 40vh; /* Banner jetzt halb so hoch (40% der Viewport-Höhe) */
     min-height: 300px; /* mindestens 300px hoch */
     max-height: 600px; /* höchstens 600px */
-  background: url('Banner.jpeg') center 20%/cover no-repeat; /* Ausschnitt weiter oben */
+  background: url('Banner.Jpeg.png') center 20%/cover no-repeat; /* Ausschnitt weiter oben */
     display: block; /* Kein inneres Zentrieren nötig ohne Text */
     position: relative; /* für zentrierten Titel */
         box-shadow: 0 6px 18px rgba(0,0,0,0.18);
@@ -173,10 +166,10 @@
                   ar-modes="webxr scene-viewer quick-look" 
                   environment-image="neutral">   
     </model-viewer>
-    <div class="text-box">
+    <div class="text-box text-box--small">
   <a href="seite2.html">→ Poetische Schnippsel</a>
 </div>
-    <div class="text-box">
+  <div class="text-box text-box--small">
    <a href=" https://marsalis030.github.io/Projekt_Justin/">Justin</a>
   &larr; &#x1F48E;  &rarr;
   <a href="https://lorrritta.github.io/Projekt_Loretta/">Loritta</a>
