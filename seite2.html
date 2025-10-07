@@ -30,18 +30,7 @@
           pointer-events: none;
           z-index: -2;
         }
-        body::after {
-          content: '';
-          position: fixed;
-          right: -100px;
-          bottom: 170px;
-          width: 200px;
-          height: 200px;
-          background: url('sticker.png') no-repeat center/contain;
-          opacity: 1;
-          pointer-events: none;
-          z-index: -1;
-        }
+        /* PNG-Overlay entfernt */
 
         .text-box {
           /* fixed dimensions so the box keeps the same size on all screens */
@@ -131,41 +120,17 @@
           box-sizing: border-box;
           position: relative;
           min-height: clamp(600px, 90vh, 1000px);
-          /* Poesiealbum: zartes Papier mit Linien */
-          background:
-            linear-gradient(120deg, #fff8fc 0%, #ffeef7 40%, #ffe2f1 100%),
-            repeating-linear-gradient(to bottom, rgba(255,170,200,0.18) 0 2px, rgba(255,170,200,0) 2px 42px);
-          background-blend-mode: normal, multiply;
-          border-radius: 18px;
-          border: 1px solid rgba(255,180,210,0.5);
-          box-shadow: 0 12px 28px rgba(0,0,0,0.12), inset 0 0 24px rgba(255,180,210,0.25);
-          overflow: hidden;
+          /* Rosa Block entfernen: transparenter Bereich ohne Rahmen/Schatten */
+          background: transparent;
+          border: 0;
+          border-radius: 0;
+          box-shadow: none;
+          overflow: visible;
         }
         /* Buchrücken (Gutter) mittig */
-        .sticker-area::before {
-          content: '';
-          position: absolute;
-          top: 0; bottom: 0;
-          left: 50%;
-          width: 18px;
-          transform: translateX(-50%);
-          background:
-            linear-gradient(to right, rgba(255,255,255,0.7), rgba(0,0,0,0.08), rgba(255,255,255,0.7));
-          filter: blur(0.2px);
-          mix-blend-mode: multiply;
-          opacity: .35;
-          pointer-events: none;
-          z-index: 0;
-        }
+        .sticker-area::before { content: none; }
         /* leichte Vignette innen */
-        .sticker-area::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          box-shadow: inset 0 0 60px rgba(0,0,0,0.08), inset 0 0 80px rgba(255,170,200,0.18);
-          pointer-events: none;
-          z-index: 0;
-        }
+        .sticker-area::after { content: none; }
         .sticker-board {
           position: relative;
           width: 100%;
