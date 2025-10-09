@@ -64,9 +64,13 @@
       .text-box.text-box--small { font-size: 1.25rem; }
 
       h2 {
-        margin: 10;
+        margin: 10px;
         padding: 10px;
   color: #00005E;
+        text-align: center;
+        font-family: 'Great Vibes', cursive;
+        font-size: 1.25rem; /* wie .text-box--small */
+        font-weight: normal; /* kein default-bold für h2 */
       }
   .site-banner {
     width: 100%;
@@ -153,10 +157,23 @@
   Der Poesiebaum trägt einige Ausschnitte unbeabsichtigter Poesie, gesprochen von dem diversen Publikum des ikonischen Hans Albers Platzes, zusammen. 
     </div>
 
-
-    <model-viewer src="Julia.glb"
+  <h2>Nachts</h2>
+  <model-viewer src="Julia.glb"
                   ios-src="Julia.usdz"
                   alt="Julia 3D Objekt"
+                  ar
+                  auto-rotate
+                  camera-controls
+                  autoplay
+                  animation-loop
+                  animation-name="CubeAction"
+                  ar-modes="webxr scene-viewer quick-look" 
+                  environment-image="neutral">   
+    </model-viewer>
+  <h2>Tags</h2>
+  <model-viewer id="viewerBlue" src="Julia.glb"
+         ios-src="Julia.usdz"
+         alt="Julia 3D Objekt (Blau)"
                   ar
                   auto-rotate
                   camera-controls
@@ -174,8 +191,25 @@
   &larr; &#x1F48E;  &rarr;
   <a href="https://lorrritta.github.io/Projekt_Loretta/">Loritta</a>
   </div>
+    <script>
+      // Tintenblau für den 2. Model-Viewer (stabile ID, Script im Body)
+      (function(){
+        const mv = document.getElementById('viewerBlue');
+        if(!mv) return;
+        mv.addEventListener('load', () => {
+          try {
+            // Dunkleres Tintenblau (#06255E)
+            const blue = [0.024, 0.146, 0.369, 1.0];
+            const materials = mv.model && mv.model.materials ? mv.model.materials : [];
+            materials.forEach(mat => {
+              const pbr = mat.pbrMetallicRoughness;
+              const base = pbr.baseColorFactor || [1,1,1,1];
+              pbr.setBaseColorFactor([blue[0], blue[1], blue[2], base[3]]);
+            });
+          } catch(e){ /* silently ignore if not accessible */ }
+        });
+      })();
+    </script>
 
-
- 
-</body>
-</html>
+  </body>
+  </html>
