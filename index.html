@@ -198,8 +198,8 @@
         if(!mv) return;
         mv.addEventListener('load', () => {
           try {
-            // Dunkleres Tintenblau (#06255E)
-            const blue = [0.024, 0.146, 0.369, 1.0];
+            // Noch dunkleres Tintenblau (#03102A)
+            const blue = [0.012, 0.063, 0.165, 1.0];
             const materials = mv.model && mv.model.materials ? mv.model.materials : [];
             materials.forEach(mat => {
               const pbr = mat.pbrMetallicRoughness;
